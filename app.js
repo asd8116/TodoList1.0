@@ -1,8 +1,23 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
-
 const app = express()
-const port = 3000
+const mongoose = require('mongoose')
+const Todo = require('./models/todo')
+
+mongoose.connect('mongodb://localhost/todo', {
+  useNewUrlParser: true
+})
+
+const db = mongoose.connection
+
+db.on('error', () => {
+  console.log('mongodb error!')
+})
+
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
+
 
 // setting template engine
 app.engine('handlebars', exphbs({
@@ -16,6 +31,6 @@ app.get('/', (req, res) => {
   res.send('Gooood')
 })
 
-app.listen(port, () => {
-  console.log(`${port}`)
+app.listen(3000, () => {
+  console.log('App is running!')
 })
