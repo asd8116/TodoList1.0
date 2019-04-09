@@ -1,5 +1,6 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
+const bodyParser = require('body-parser')
 const app = express()
 const mongoose = require('mongoose')
 const Todo = require('./models/todo')
@@ -26,6 +27,10 @@ app.engine('handlebars', exphbs({
 
 app.set('view engine', 'handlebars')
 
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
+
 // routes
 // Todo 首頁
 app.get('/', (req, res) => {
@@ -44,7 +49,19 @@ app.get('/todos', (req, res) => {
 
 // 新增一筆 Todo 頁面
 app.get('/todos/new', (req, res) => {
-  res.send('新增 Todo 頁面')
+  res.render('new')
+})
+
+// 新增一筆  Todo
+app.post('/todos', (req, res) => {
+  const todo = Todo({
+    name: req.body.name, // name 是從 new 頁面 form 傳過來
+  })
+
+  todo.save(err => {
+    if (err) return console.error(err)
+    return res.redirect('/') // 新增完成後，將使用者導回首頁
+  })
 })
 
 // 顯示一筆 Todo 的詳細內容
