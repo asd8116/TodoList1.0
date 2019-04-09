@@ -29,7 +29,7 @@ app.set('view engine', 'handlebars')
 // routes
 // Todo 首頁
 app.get('/', (req, res) => {
-  res.send('hello world!')
+  res.render('index')
 })
 
 // 列出全部 Todo
