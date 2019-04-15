@@ -37,7 +37,7 @@ app.use(methodOverride('_method'))
 // routes
 app.use('/', require('./routes/home'))
 app.use('/todos', require('./routes/todos'))
-app.use('/users', require('./routes/user')) // 新增的 user 路由器
+app.use('/users', require('./routes/users')) // 新增的 user 路由器
 
 app.listen(3000, () => {
   console.log('App is running!')
