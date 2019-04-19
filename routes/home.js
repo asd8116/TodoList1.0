@@ -4,7 +4,7 @@ const Todo = require('../models/todo')
 const { authenticated } = require('../config/auth')
 
 router.get('/', authenticated, (req, res) => {
-  Todo.find({})
+  Todo.find({ userId: req.user._id })
     .sort({
       name: 'asc'
     })
