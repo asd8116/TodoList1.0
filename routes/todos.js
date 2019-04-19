@@ -1,21 +1,22 @@
 const express = require('express')
 const router = express.Router()
 const Todo = require('../models/todo')
+const { authenticated } = require('../config/auth')
 
 // 列出全部 Todo
-router.get('/', (req, res) => {
+router.get('/', authenticated, (req, res) => {
   res.send('列出所有 Todo')
 })
 
 // 新增一筆 Todo 頁面
-router.get('/new', (req, res) => {
+router.get('/new', authenticated, (req, res) => {
   res.render('new')
 })
 
 // 新增一筆  Todo
-router.post('/', (req, res) => {
+router.post('/', authenticated, (req, res) => {
   const todo = Todo({
-    name: req.body.name, // name 是從 new 頁面 form 傳過來
+    name: req.body.name // name 是從 new 頁面 form 傳過來
   })
 
   todo.save(err => {
@@ -25,7 +26,7 @@ router.post('/', (req, res) => {
 })
 
 // 顯示一筆 Todo 的詳細內容
-router.get('/:id', (req, res) => {
+router.get('/:id', authenticated, (req, res) => {
   Todo.findById(req.params.id, (err, todo) => {
     if (err) return console.error(err)
     return res.render('detail', {
@@ -35,7 +36,7 @@ router.get('/:id', (req, res) => {
 })
 
 // 修改 Todo 頁面
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', authenticated, (req, res) => {
   Todo.findById(req.params.id, (err, todo) => {
     if (err) return console.error(err)
     return res.render('edit', {
@@ -45,7 +46,7 @@ router.get('/:id/edit', (req, res) => {
 })
 
 // 修改 Todo
-router.put('/:id', (req, res) => {
+router.put('/:id', authenticated, (req, res) => {
   Todo.findById(req.params.id, (err, todo) => {
     if (err) return console.error(err)
     todo.name = req.body.name
@@ -62,7 +63,7 @@ router.put('/:id', (req, res) => {
 })
 
 // 刪除 Todo
-router.delete('/:id/delete', (req, res) => {
+router.delete('/:id/delete', authenticated, (req, res) => {
   Todo.findById(req.params.id, (err, todo) => {
     if (err) return console.error(err)
     todo.remove(err => {
