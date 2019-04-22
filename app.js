@@ -9,7 +9,8 @@ const mongoose = require('mongoose')
 const Todo = require('./models/todo')
 
 mongoose.connect('mongodb://localhost/todo', {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useCreateIndex: true
 })
 
 const db = mongoose.connection
@@ -42,7 +43,9 @@ app.use(methodOverride('_method'))
 // 使用 express session
 app.use(
   session({
-    secret: 'your secret key' // secret: 定義一組自己的私鑰（字串)
+    secret: 'your secret key', // secret: 定義一組自己的私鑰（字串)
+    resave: 'false',
+    saveUninitialized: 'false'
   })
 )
 // 使用 Passport
