@@ -66,6 +66,7 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/home'))
 app.use('/todos', require('./routes/todos'))
 app.use('/users', require('./routes/users')) // 新增的 user 路由器
+app.use('/auth', require('./routes/auths')) // 把 auth route 加進來
 
 app.listen(3000, () => {
   console.log('App is running!')
