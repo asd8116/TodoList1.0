@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('passport')
+const flash = require('connect-flash') // 載入 connect-flash
 const app = express()
 const mongoose = require('mongoose')
 const Todo = require('./models/todo')
@@ -48,6 +49,10 @@ app.use(
     saveUninitialized: 'false'
   })
 )
+
+// 使用 Connect flash
+app.use(flash())
+
 // 使用 Passport
 app.use(passport.initialize())
 app.use(passport.session())
@@ -59,6 +64,9 @@ require('./config/passport')(passport)
 app.use((req, res, next) => {
   res.locals.user = req.user
   res.locals.isAuthenticated = req.isAuthenticated() // 辨識使用者是否已經登入的變數，讓 view 可以使用
+  // 新增兩個 flash message 變數
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 
