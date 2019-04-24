@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 const Todo = require('../todo')
 
 mongoose.connect('mongodb://localhost/todo', {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useCreateIndex: true
 })
-
 const db = mongoose.connection
 
 db.on('error', () => {
@@ -16,7 +16,8 @@ db.once('open', () => {
 
   for (let i = 0; i < 10; i++) {
     Todo.create({
-      name: 'name-' + i
+      name: 'name-' + i,
+      userId: '5cc06ecef267673edc48efdc'
     })
   }
 
