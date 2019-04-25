@@ -9,7 +9,7 @@ const app = express()
 const mongoose = require('mongoose')
 const Todo = require('./models/todo')
 
-mongoose.connect('mongodb://localhost/todo', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/todo', {
   useNewUrlParser: true,
   useCreateIndex: true
 })
@@ -76,6 +76,6 @@ app.use('/todos', require('./routes/todos'))
 app.use('/users', require('./routes/users')) // 新增的 user 路由器
 app.use('/auth', require('./routes/auths')) // 把 auth route 加進來
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('App is running!')
 })

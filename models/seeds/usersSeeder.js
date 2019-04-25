@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const User = require('../user')
 const bcrypt = require('bcryptjs')
 
-mongoose.connect('mongodb://localhost/todo', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/todo', {
   useNewUrlParser: true,
   useCreateIndex: true
 })
