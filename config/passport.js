@@ -32,7 +32,7 @@ module.exports = passport => {
       {
         clientID: '2360238787374516',
         clientSecret: 'faee16bfb4ceac2061601bf67eb8d0ca',
-        callbackURL: 'http://localhost:3000/auth/facebook/callback',
+        callbackURL: 'https://desolate-atoll-52383.herokuapp.com/auth/facebook/callback',
         profileFields: ['email', 'displayName']
       },
       (accessToken, refreshToken, profile, done) => {
