@@ -7,7 +7,12 @@ const passport = require('passport')
 const flash = require('connect-flash') // 載入 connect-flash
 const app = express()
 const mongoose = require('mongoose')
-const Todo = require('./models/todo')
+
+// 判別開發環境
+if (process.env.NODE_ENV !== 'production') {
+  // 如果不是 production 環境
+  require('dotenv').config() // 使用 dotenv 讀取 .env 檔案
+}
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/todo', {
   useNewUrlParser: true,
